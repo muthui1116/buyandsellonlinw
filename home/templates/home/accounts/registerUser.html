@@ -1,0 +1,75 @@
+{% extends 'home/base.html'%}
+{% load static%}
+{% block content%}
+<!-- Main Section Start -->
+    <div class="card" style="width: 36rem;">
+        <form class="" method="post" action="{% url 'registerUser'%}">
+            {% csrf_token%}
+            <div class="row ">
+                <div class="col text-center">
+                    <h4>WELCOME TO SELL-AND-BUY-ONLINE</h4>
+                    <p>Please fill the form to get yourself onboard in the online market place</p> <hr>
+                </div>
+            </div>
+        
+
+            <div class="row">
+                <div class="col form-group">
+                    <label>First name</label>
+                    {{ form.first_name}}
+                </div>
+                <div class="col form-group">
+                    <label>Last name</label>
+                    {{ form.last_name}}
+                </div> 
+            </div>
+            
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Email Address</label>
+                    {{ form.email}}
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Use Name</label>
+                    {{ form.username}}
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Create password</label>
+                    {{ form.password}}
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Confirm password</label>
+                    {{ form.confirm_password}}
+                </div> 
+            </div>
+
+            <ul class="errorlist">
+                {% for field in form%}
+                    {% if field.errors%}
+                        {% for error in field.errors%}
+                            <li style="color:red">{{ error}}</li>
+                        {% endfor%}
+                    {% endif%}
+                {% endfor%}
+                <li style="color:red">{{ form.non_field_errors}}</li>
+            </ul>
+        
+            <div class="row">
+                <div class="form-group">
+                    <button type="submit" value="submit" class="btn btn-danger">Submit</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group mt-2">
+                    <!-- Load message -->
+                    {% include 'home/includes/alerts.html'%}
+                </div>
+            </div>
+        </form>
+    </div>
+<!-- Main Section End -->
+{% endblock%}

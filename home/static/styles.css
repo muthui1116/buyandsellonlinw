@@ -38,7 +38,7 @@ h3{
     bottom: 100%;
     right: 20px;
     animation-name: show-toast;
-    animation-duration: 5s;
+    animation-duration: 15s;
     z-index: 99;
 }
 
@@ -73,5 +73,16 @@ a:hover{
 
 .bg-color{
     background-color: #f1f1f1;
+}
+
+.errorlist{
+    padding: 0;
+    list-style-type: none;
+}
+
+.card{
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
