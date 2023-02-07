@@ -2,13 +2,13 @@
 {% load static%}
 {% block content%}
 <!-- Main Section Start -->
-    <div class="card card-customer" style="width: 36rem;">
-        <form class="" method="post" action="{% url 'registerUser'%}">
+    <div class="card card-vendor" style="width: 36rem;">
+        <form class="" method="post" action="{% url 'registerVendor'%}" enctype="multipart/form-data">
             {% csrf_token%}
             <div class="row ">
                 <div class="col text-center">
-                    <h4>WELCOME TO SELL-AND-BUY-ONLINE</h4>
-                    <p>Please fill the form to get yourself onboard in the online market place</p> <hr>
+                    <h4>PARTINER WITH SELL-AND-BUY-ONLINE</h4>
+                    <p>Register your services/goods in this online marketplace and get more customers</p> <hr>
                 </div>
             </div>
         
@@ -21,6 +21,17 @@
                 <div class="col form-group">
                     <label>Last Name</label>
                     {{ form.last_name}}
+                </div> 
+            </div>
+
+            <div class="row">
+                <div class="col form-group">
+                    <label>Vendor Name</label>
+                    {{ v_form.vendor_name}}
+                </div>
+                <div class="col form-group">
+                    <label>Vendor License</label>
+                    {{ v_form.vendor_license}}
                 </div> 
             </div>
             
