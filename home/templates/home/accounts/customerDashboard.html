@@ -1,0 +1,15 @@
+{% extends 'home/base.html'%}
+
+{% block content%}
+<div class="container-fluid" >
+    <div class="row">
+        <div class="form-group mt-2">
+            <!-- Load message -->
+            <h4>Welcome {{user.username}}</h4>
+            <p>This is a {{ user.get_role}}</p>
+            {% include 'home/includes/alerts.html'%}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock%}

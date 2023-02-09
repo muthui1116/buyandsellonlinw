@@ -1,0 +1,53 @@
+{% extends 'home/base.html'%}
+
+{% block content%}
+
+<div class="card card-vendor" style="width: 36rem;">
+    <form class="" method="POST" action="{% url 'login'%}" enctype="multipart/form-data">
+        {% csrf_token%}
+        <div class="row ">
+            <div class="col text-center">
+                <h4>SIGN IN</h4>
+                <p>Place order from your favorate vendor</p> <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col form-group ">
+              <label>Email Address</label>
+              <input class="form-control" type="email" name="email" placeholder="Enter your email address" id="">
+            </div>
+            <!-- form-group end.// -->
+            <div class="col form-group">
+              <label>Password</label>
+              <input class="form-control" type="password" name="password" placeholder="Enter your password" id="">
+            </div>
+          </div>
+
+        <ul class="errorlist">
+            {% for field in form%}
+                {% if field.errors%}
+                    {% for error in field.errors%}
+                        <li style="color:red">{{ error}}</li>
+                    {% endfor%}
+                {% endif%}
+            {% endfor%}
+            <li style="color:red">{{ form.non_field_errors}}</li>
+        </ul>
+    
+        <div class="row">
+            <div class="form-group">
+                <button type="submit" value="submit" class="btn btn-danger">Submit</button>
+                <a href="" class="float-end me-2">Forgot Password?</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group mt-2">
+                <!-- Load message -->
+                {% include 'home/includes/alerts.html'%}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock%}

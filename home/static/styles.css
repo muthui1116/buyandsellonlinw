@@ -80,7 +80,7 @@ a:hover{
     list-style-type: none;
 }
 
-.card-customer, .card-vendor{
+.card-customer, .card-vendor, .card-login{
     margin: auto;
     margin-top: 1%;
     margin-bottom: 1%;
