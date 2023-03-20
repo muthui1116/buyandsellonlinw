@@ -6,9 +6,11 @@ from django.core.exceptions import PermissionDenied
 from . forms import UserForm
 from . models import User, UserProfile
 from . utils import detectUser
-from .utils import detectUser
-from .utils import detectUser, send_verification_email, urlsafe_base64_decode, default_token_generator
+from . utils import detectUser
+from . utils import detectUser, send_verification_email, urlsafe_base64_decode, default_token_generator
+
 from vendor.forms import VendorForm
+from vendor.models import Vendor
 
 
 # Prevent the vendor from accesing the customer page
@@ -173,6 +175,7 @@ def customerDashboard(request):
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
 def vendorDashboard(request):
+    # Below code is provided from context_processors
     # vendor = Vendor.objects.get(user=request.user)
     # context = {
     #     'vendor': vendor,

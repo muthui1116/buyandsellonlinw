@@ -1,15 +1,109 @@
 {% extends 'home/base.html'%}
+{% load static%}
 
 {% block content%}
-<div class="container-fluid" >
-    <div class="row">
-        <div class="form-group mt-2">
-            <!-- Load message -->
-            <h4>Welcome {{user.username}}</h4>
-            <p>This is a {{ user.get_role}}</p>
-            {% include 'home/includes/alerts.html'%}
-        </div>
-    </div>
-</div>
-</div>
+{% include 'home/includes/alerts.html'%}
+
+
+
+		<!-- Main Section Start -->
+		<div class="main-section">
+			<div class="page-section restaurant-detail-image-section" style=" background: url({% static 'home/images/comp repair.jpg'%}) no-repeat scroll 0 0 / cover;">
+				<!-- Container Start -->
+				<div class="container">
+					<!-- Row Start -->
+					<div class="row">
+						<!-- Column Start -->
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="company-info-detail">
+                                <div class="img-holder mt-3">
+                                    <div class="img-holder">
+                                        <figure>
+                                            <span>
+                                                <img src="{% static 'home/images/log.png'%}" alt="" width="23px">
+                                                <span class="restaurant-title">Muthui Kyalo | 0716916128</span>
+                                                
+                                            </span>
+                                        </figure>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+						<!-- Column End -->
+					</div>
+					<!-- Row End -->
+				</div>
+				<!-- Container End -->
+			</div>
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<!-- load sidebar here -->
+                        {% include 'home/includes/c_sidebar.html'%}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 card">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="row">
+											<div class="element-title has-border right-filters-row">
+												<h5>Recent Orders</h5>
+												<div class="right-filters row pull-right">
+													<div class="col-lg-6 col-md-6 col-xs-6">
+														<div class="input-field">
+															<select class="chosen-select-no-single">
+																<option selected="selected" value="">Select Orders Status</option>
+																<option value="Processing">Processing</option>
+																<option value="Cancelled">Cancelled</option>
+																<option value="Completed">Completed</option>
+															</select>
+														</div>
+													</div>
+                                                </div>
+                                                <table class="table table-striped mt-3">
+                                                    <tr>
+                                                    <td>ORDER ID</td>
+                                                    <td>DATE</td>
+                                                    <td>TOTAL PRICE</td>
+                                                    <td>CHARGES</td>
+                                                    <td>RECEIVED</td>
+                                                    <td>STATUS</td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>ORDER-22602</td>
+                                                    <td>Apri 9, 2022</td>
+                                                    <td>$ 34</td>
+                                                    <td>$ 1</td>
+                                                    <td>$ 33</td>
+                                                    <td><span class="order-status" style="background-color: #047a06; color: white;">Completed</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>ORDER-22603</td>
+                                                    <td>Apri 9, 2022</td>
+                                                    <td>$ 10</td>
+                                                    <td>$ 2</td>
+                                                    <td>$ 38</td>
+                                                    <td><span class="order-status" style="background-color: #1e73be; color: white;">Processing</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>ORDER-22602</td>
+                                                    <td>Apri 9, 2022</td>
+                                                    <td>$ 34</td>
+                                                    <td>$ 1</td>
+                                                    <td>$ 33</td>
+                                                    <td><span class="order-status" style="background-color: #047a06; color: white;">Completed</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                       
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- Main Section End -->
 {% endblock%}

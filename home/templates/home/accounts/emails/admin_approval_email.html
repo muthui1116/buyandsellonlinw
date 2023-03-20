@@ -1,0 +1,8 @@
+{% autoescape off%}
+Hi {{ user.first_name}},
+{% if is_approved%}
+Congratulations! Your onlineservices has been approved by our admin team --onlineServices.
+{% else%}
+We are sorry. You are not eligible to publish your online services on our marketplace. For more details please contact support@onlinesevices.com --onlineServices.
+{% endif%}
+{% endautoescape%}

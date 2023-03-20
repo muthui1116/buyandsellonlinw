@@ -41,16 +41,16 @@ h3{
     animation-duration: 15s;
     z-index: 99;
 }
-
-a:link { text-decoration: none; } 
+.vsidebar-a:link, .csidebar-a:link { text-decoration: none; }  
 
 .active{
     color:red; 
-}
+} 
 
-a:hover{
+.csidebar-a:hover, .vsidebar-a:hover{
+    text-decoration: none;
     color:red;
-}
+} 
 
 .btn{
     padding: 3px 1.75em;

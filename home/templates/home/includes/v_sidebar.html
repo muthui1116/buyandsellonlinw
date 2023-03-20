@@ -1,0 +1,15 @@
+<div class="user-account-nav user-account-sidebar">
+    <div class="user-nav-list">
+        <ul class="card">
+            
+            <a href="{% url 'vendorDashboard'%}" class="vsidebar-a {% if '/accounts/vendorDashboard/' == request.path or '/accounts/vendor/' == request.path%}active{% endif%}"><i class="fas fa-qrcode"></i>  Dashboard</a> <br>
+            <a href="{% url 'vprofile'%}" class="vsidebar-a {% if 'profile' in request.path%}active{%endif%}"><i class='fas fa-baby-carriage'></i>   My Restaurant</a> <br>
+            <a class="vsidebar-a"href="" class="{% if 'menu-builder' in request.path%}active {% endif%}"> <i class="fa fa-bars"></i>  Menu Builder</a> <br>
+            <a class="vsidebar-a"href="restaurant-orders.html"> <i class='fas fa-shopping-cart'></i> Orders</a> <br>
+            <a class="vsidebar-a"href="restaurant-bookings.html"> <i class="fa fa-dollar"></i> Earnings</a> <br>
+            <a class="vsidebar-a"href="restaurant-reviews.html"> <i class="fa fa-file-text-o"></i> Statements</a> <br>
+            <a class="vsidebar-a"href="restaurant-change-password.html"> <i class='fas fa-unlock'></i> Change Password</a> <br>
+            <a class="vsidebar-a"class="logout-btn" href="registration.html"> <i class='fas fa-sign-out-alt'></i> Signout</a>
+        </ul>
+    </div>
+</div>
