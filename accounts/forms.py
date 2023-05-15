@@ -1,5 +1,6 @@
 from django import forms
-from . models import User
+from . models import User, UserProfile
+from .validators import allow_only_images_validators
 
 
 class UserForm(forms.ModelForm):
@@ -32,3 +33,30 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError(
                 'password does not match!'
             )
+
+class UserProfileForm(forms.ModelForm):
+    address = forms.CharField(widget = forms.TextInput(attrs={'class': '', 'required': 'required'}))
+    profile_picture = forms.FileField(widget=forms.FileInput(attrs={'class': ''}), validators=[allow_only_images_validators])
+    cover_photo = forms.FileField(widget=forms.FileInput(attrs={'class': ''}), validators=[allow_only_images_validators])
+
+    # latitude = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    # longitude = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture', 'cover_photo', 'address', 'city', 'state', 'country','pin_code', 'latitude', 'longitude' ]
+
+    def __init__(self, *args, **kwargs):
+        super( UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['profile_picture'].widget.attrs['placeholder'] = ''
+        self.fields['cover_photo'].widget.attrs['placeholder'] = ''
+        self.fields['address'].widget.attrs['placeholder'] = ''
+        self.fields['city'].widget.attrs['placeholder'] = ''
+        self.fields['state'].widget.attrs['placeholder'] = ''
+        self.fields['country'].widget.attrs['placeholder'] = ''
+        self.fields['pin_code'].widget.attrs['placeholder'] = ''
+        self.fields['latitude'].widget.attrs['placeholder'] = ''
+        self.fields['longitude'].widget.attrs['placeholder'] = ''
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            if field == 'latitude' or field == 'longitude':
+                self.fields[field].widget.attrs['readonly'] = 'readonly'

@@ -3,7 +3,7 @@
 
 {% block content%}
 {% include 'home/includes/alerts.html'%}
-    <!-- Main Section Start -->
+		<!-- Main Section Start -->
 		<div class="main-section">
 			{% include 'home/includes/cover.html'%}
 			<div class="page-section account-header buyer-logged-in">
@@ -13,100 +13,116 @@
 						<!-- load sidebar here -->
                         {% include 'home/includes/v_sidebar.html'%}
 						</div>
-						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 card">
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 							<div class="user-dashboard loader-holder">
 								<div class="user-holder">
-                                          
-                                    <h5 class="text-uppercase">Overview</h5>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    Total Orders
+                                    <h5 class="text-uppercase">Manage Your Restaurant</h5>
+                                    <form action="{% url 'vprofile'%}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token%}
+
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <img src="{{ profile.profile_picture.url}}" class="img-thumbnail profile-img mb-1" alt="...">                                             
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                    <label class="form-control mb-1" for="">Update Profile Picture</label>
+                                                    {{ profile_form.profile_picture}}
                                                 </div>
-                                                <div class="card-body text-center">
-                                                    <a class="vsidebar-a" href=""><h5 class="card-title">1234</h5></a>
+                                                <label class="text-danger">{{ profile_form.profile_picture.errors}}</label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <img src="{{ profile.cover_photo.url}}" class="img-thumbnail profile-img mb-1" alt="...">                                              
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                    <label class="form-control mb-1" for="">Update Cover Photo</label>
+                                                    {{ profile_form.profile_picture}}
+                                                </div>
+                                                <label class="text-danger" for="">{{ profile_form.profile_picture.errors}}</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <img src="{{ vendor.vendor_license.url}}" class="img-thumbnail profile-img mb-1" alt="...">                                             
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                    <card class="form-control mb-1" for="">Update Your License</card>
+                                                    {{ profile_form.profile_picture}}
+                                                </div>
+                                                <label class="text-danger" for="">{{ profile_form.profile_picture.errors}}</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <hr>
+
+                                        <label for="">Restaurant Name*</label><br>
+                                        <div class="">
+                                            {{ vendor_form.vendor_name}}
+                                        </div>
+                                              
+                                        <div class="row">
+                                            <div class="col-12">
+                                            <label for="">Address*</label><br>
+                                                <div class="">
+                                                {{ profile_form.address}}
+                                                <small class="text-muted float-end">Powered by Google</small>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    Total Revenue
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <label for="">Country*</label><br>
+                                                <div class="">
+                                                {{ profile_form.country}}
                                                 </div>
-                                                <div class="card-body text-center">
-                                                    <a class="vsidebar-a" href=""><h5 class="card-title">$43,59.08</h5></a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="">State*</label><br>
+                                                <div class="">
+                                                    {{ profile_form.state}}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    This Month
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <label for="">City*</label><br>
+                                                <div class="">
+                                                {{ profile_form.city}}
                                                 </div>
-                                                <div class="card-body text-center">
-                                                   <a class="vsidebar-a" href=""><h5 class="card-title">$459.08</h5></a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="">Pin Code*</label><br>
+                                                <div class="">
+                                                    {{ profile_form.pin_code}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <br>
-                                   
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="row">
-											<div class="element-title has-border right-filters-row">
-												<h5>Recent Orders</h5>
-												<div class="right-filters row pull-right">
-													<div class="col-lg-6 col-md-6 col-xs-6">
-														<div class="input-field">
-															<select class="chosen-select-no-single">
-																<option selected="selected" value="">Select Orders Status</option>
-																<option value="Processing">Processing</option>
-																<option value="Cancelled">Cancelled</option>
-																<option value="Completed">Completed</option>
-															</select>
-														</div>
-													</div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <label for="">Latitude*</label><br>
+                                                <div class="">
+                                                {{ profile_form.latitude}}
                                                 </div>
-                                                <table class="table table-striped mt-3">
-                                                    <tr>
-                                                    <td>ORDER ID</td>
-                                                    <td>DATE</td>
-                                                    <td>TOTAL PRICE</td>
-                                                    <td>CHARGES</td>
-                                                    <td>RECEIVED</td>
-                                                    <td>STATUS</td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td>ORDER-22602</td>
-                                                    <td>Apri 9, 2022</td>
-                                                    <td>$ 34</td>
-                                                    <td>$ 1</td>
-                                                    <td>$ 33</td>
-                                                    <td><span class="order-status" style="background-color: #047a06; color: white;">Completed</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td>ORDER-22603</td>
-                                                    <td>Apri 9, 2022</td>
-                                                    <td>$ 10</td>
-                                                    <td>$ 2</td>
-                                                    <td>$ 38</td>
-                                                    <td><span class="order-status" style="background-color: #1e73be; color: white;">Processing</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td>ORDER-22602</td>
-                                                    <td>Apri 9, 2022</td>
-                                                    <td>$ 34</td>
-                                                    <td>$ 1</td>
-                                                    <td>$ 33</td>
-                                                    <td><span class="order-status" style="background-color: #047a06; color: white;">Completed</span></td>
-                                                    </tr>
-                                                </table>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="">Longitude*</label><br>
+                                                <div class="">
+                                                    {{ profile_form.longitude}}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <button type="submit" class="btn btn-primary btn-sm mt-2">Update Restaurant</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>                       

@@ -7,7 +7,7 @@ from . forms import UserForm
 from . models import User, UserProfile
 from . utils import detectUser
 from . utils import detectUser
-from . utils import detectUser, send_verification_email, urlsafe_base64_decode, default_token_generator
+from . utils import detectUser, send_verification_email, urlsafe_base64_decode, default_token_generator, send_notification
 
 from vendor.forms import VendorForm
 from vendor.models import Vendor
@@ -55,13 +55,8 @@ def registerUser(request):
             user.save()
 
             # Send verification email
-            mail_subject = 'Reset your password'
-            email_template = 'accounts/emails/reset_password_email.html'
-            send_verification_email(request, user, mail_subject, email_template) 
-            
-            
-
-            messages.success(request, 'Your account has been registered succefully.')
+            send_verification_email(request, user) 
+            messages.success(request, 'Your account has been registered succefully and activation link send to your email account')
             return redirect('registerUser')
         else:
             print('invalid form')
@@ -89,18 +84,15 @@ def registerVendor(request):
             user.role = User.VENDOR
             user.save()
 
-            # Send verification email
-            mail_subject = 'Reset your password'
-            email_template = 'accounts/emails/reset_password_email.html'
-            send_verification_email(request, user, mail_subject, email_template) 
-           
-
             vendor = v_form.save(commit=False)
             vendor.user = user
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
-            messages.success(request, 'Your account has been registered succefully. Please wait for approval.')
+
+            # Send verification email
+            send_verification_email(request, user) 
+            messages.success(request, 'Your account has been registered successfuly activation link sent to your email account plea wait for approval')
             return redirect('registerVendor')
     else:
         form = UserForm
@@ -191,7 +183,6 @@ def forgot_password(request):
             mail_subject = 'Reset your password'
             email_template = 'home/accounts/emails/reset_password_email.html'
             send_verification_email(request, user, mail_subject, email_template) 
-
             messages.success(request, 'Password link has been sent to your email address')
             return redirect('login')
         else:
