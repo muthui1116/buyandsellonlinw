@@ -1,0 +1,58 @@
+{% extends 'home/base.html'%}
+{% load static%}
+
+{% block content%}
+{% include 'home/includes/alerts.html'%}
+		<!-- Main Section Start -->
+		<div class="main-section">
+			{% include 'home/includes/cover.html'%}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<!-- load sidebar here -->
+                        {% include 'home/includes/v_sidebar.html'%}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<h5 class="text-uppercase">Build your item menu</h5>
+							<form action="{% url 'add_category'%}" method="POST">
+                                {% csrf_token%}
+                        
+                                <div class="row">
+                                    <div class="col-12">
+                                    <label for="">Add New Category *</label><br>
+                                        <div class="">
+                                        {{ form.category_name}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                    <label for="">Description</label><br>
+                                        <div class="">
+                                        {{ form.description}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="errorlist">
+                                    {% for field in form%}
+                                        {% if field.errors%}
+                                            {% for error in field.errors%}
+                                                <li style="color:red">{{ error}}</li>
+                                            {% endfor%}
+                                        {% endif%}
+                                    {% endfor%}
+                                    <li style="color:red">{{ form.non_field_errors}}</li>
+                                </ul>
+
+                                <button type="submit" class="btn btn-info mt-2"><i class="fa fa-check"></i> Create</button>
+                            </form>      
+                        </div>                       
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- Main Section End -->
+{% endblock%}

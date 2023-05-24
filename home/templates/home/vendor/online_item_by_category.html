@@ -1,0 +1,56 @@
+{% extends 'home/base.html'%}
+{% load static%}
+
+{% block content%}
+{% include 'home/includes/alerts.html'%}
+	<!-- Main Section Start -->
+		<div class="main-section">
+			{% include 'home/includes/cover.html'%}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<!-- load sidebar here -->
+                        {% include 'home/includes/v_sidebar.html'%}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+                                    <h5 class="text-uppercase">Build your item menu</h5>
+									<button class="btn btn-secondary" onclick="history.back()"><i class="fa fa-angle-left"></i> Back</button>
+									<br> <br>
+									<h6>Category: <span class="text-uppercase text-success">{{ category}}</span></h6>
+									{% if onlineitem%}
+									<div class="row ">
+										<a href="" class="btn btn-info mb-1"><i class="fa fa-plus"></i> Add Category</a>
+										<a href="" class="btn btn-success mb-3"><i class="fa fa-plus"></i> Add Item</a>
+										{% for item in onlineitem%}	
+												<div class="col-sm-1">{{ forloop.counter}} </div>
+												<div class="col-sm-2"><img src="{{ item.image.url}}" class="img-thumbnail profile-img mb-1" alt="item"></div>
+												<div class="col-sm-6">	
+									                <a class="vsidebar-a " href=""><p class="mb-0 font-weight-bold">{{ item}}</p>
+													<small class="text-muted">{{ item.description}}</small>
+													</a>
+												</div>
+												<div class="col-sm-3">
+													<i class="fa fa-edit"> Edit</i> &nbsp; 
+													<i class="fa fa-trash text-danger"> Delete</i>
+												</div>
+												<hr>
+										{% endfor%}
+									</div>
+									{% else%}
+										<h5 class="text-center">No Online Item Found</h5>
+										<div class="text-center">
+											<a href="" class="btn btn-success"><i class="fa fa-plus"></i> Add Item</a></a>
+										</div>
+									{% endif%}
+                                </div>
+                            </div>
+                        </div>                       
+					</div>                 
+				</div>
+			</div>
+		</div>
+	<!-- Main Section End -->
+{% endblock%}
