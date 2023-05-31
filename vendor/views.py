@@ -8,7 +8,7 @@ from accounts.models import UserProfile
 from accounts.views import check_role_vendor
 from . models import Vendor
 from menu.models import Category, OnlineItem
-from menu.forms import CategoryForm
+from menu.forms import CategoryForm, OnlineItemForm
 
 
 # Create your views here.
@@ -69,6 +69,8 @@ def online_item_by_category(request, pk=None):
     }
     return render(request, 'home/vendor/online_item_by_category.html', context)
 
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
 def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -82,11 +84,15 @@ def add_category(request):
             return redirect('menu_builder')
     else:
         form = CategoryForm()
+        # modify this form
+        form.fields['category'].queryset = Category.objects.filter(vendor=get_vendor(request))
     context = {
         'form': form,
     }
     return render(request, 'home/vendor/add_category.html', context)
 
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
 def edit_category(request, pk=None):
     category = get_object_or_404(Category, pk=pk)
     if request.method == 'POST':
@@ -107,9 +113,62 @@ def edit_category(request, pk=None):
     }
     return render(request, 'home/vendor/edit_category.html', context)
 
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
 def delete_category(request, pk=None):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
     messages.success(request, 'Category has been deleted successfully.')
     return redirect('menu_builder')
 
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def add_item(request):
+    if request.method == 'POST':
+        form = OnlineItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            item_title = form.cleaned_data['item_title']
+            item = form.save(commit=False)
+            item.vendor = get_vendor(request)
+            item.slug = slugify(item_title)
+            form.save()
+            messages.success(request, 'Online Item added successfully.')
+            return redirect('online_item_by_category', item.category.id)
+    else:
+        form = OnlineItemForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'home/vendor/add_item.html', context)
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def edit_item(request, pk=None):
+    item = get_object_or_404(OnlineItem, pk=pk)
+    if request.method == 'POST':
+        form = OnlineItemForm(request.POST, request.FILES, instance=item)
+        if form.is_valid():
+            itemtitle = form.cleaned_data['item_title']
+            item = form.save(commit=False)
+            item.vendor = get_vendor(request)
+            item.slug = slugify(itemtitle)
+            form.save()
+            messages.success(request, 'Online Item updated successfully.')
+            return redirect('online_item_by_category', item.category.id)
+    else:
+        form = OnlineItemForm(instance=item)
+        form.fields['category'].queryset = Category.objects.filter(vendor=get_vendor(request))
+    context = {
+        'form': form,
+        'item': item,
+    }
+    return render(request, 'home/vendor/edit_item.html', context)
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def delete_item(request, pk=None):
+    item = get_object_or_404(OnlineItem, pk=pk)
+    item.delete()
+    messages.success(request, 'Online item has been deleted successfully.')
+    return redirect('online_item_by_category', item.category.id)

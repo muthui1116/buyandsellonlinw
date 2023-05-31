@@ -14,11 +14,12 @@
                         {% include 'home/includes/v_sidebar.html'%}
 						</div>
 						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-							<h5 class="text-uppercase">Build your item menu</h5>
-							<h6>Menu Categories</h6>
+							<h4 class="text-uppercase">Build your item menu</h4>         
+							<h5>Menu Categories</h5>
 							<div class="row ">
+								{% if categories%}
 								<a href="{% url 'add_category'%}" class="btn btn-info mb-1"><i class="fa fa-plus"></i> Add Category</a>
-								<a href="" class="btn btn-success mb-3"><i class="fa fa-plus"></i> Add Item</a>
+								<a href="{% url 'add_item'%}" class="btn btn-success mb-3"><i class="fa fa-plus"></i> Add Item</a>
 								{% for cat in categories%}	
 										<div class="col-sm-1">{{ forloop.counter}} </div>
 										<div class="col-sm-8">	
@@ -32,7 +33,11 @@
 										</div>
 										<hr>
 								{% endfor%}
-							</div>             
+								{% else%}
+								<h5 class="text-center">No Categories Found</h5>
+								<a href="{% url 'add_category'%}" class="btn btn-info mb-1"><i class="fa fa-plus"></i> Add Category</a>
+								{% endif%}
+							</div> 
                         </div>                       
 					</div>
 				</div>

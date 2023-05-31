@@ -14,13 +14,14 @@
                         {% include 'home/includes/v_sidebar.html'%}
 						</div>
 						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-							<h5 class="text-uppercase">Build your item menu</h5>
+							<h4 class="text-uppercase">Build your item menu</h4>
 							<form action="{% url 'add_category'%}" method="POST">
                                 {% csrf_token%}
                         
                                 <div class="row">
+                                    <h5>Add New Category</h5>
                                     <div class="col-12">
-                                    <label for="">Add New Category *</label><br>
+                                    <label for="">Category Name *</label><br>
                                         <div class="">
                                         {{ form.category_name}}
                                         </div>

@@ -16,33 +16,42 @@
 						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 							<div class="user-dashboard loader-holder">
 								<div class="user-holder">
-                                    <h5 class="text-uppercase">Build your item menu</h5>
+                                    <h4 class="text-uppercase">Build your item menu</h4>
 									<button class="btn btn-secondary" onclick="history.back()"><i class="fa fa-angle-left"></i> Back</button>
 									<br> <br>
-									<h6>Category: <span class="text-uppercase text-success">{{ category}}</span></h6>
+									<h5>Category: <span class="text-uppercase text-success">{{ category}}</span></h5>
 									{% if onlineitem%}
-									<div class="row ">
-										<a href="" class="btn btn-info mb-1"><i class="fa fa-plus"></i> Add Category</a>
-										<a href="" class="btn btn-success mb-3"><i class="fa fa-plus"></i> Add Item</a>
+									<div class="row">
 										{% for item in onlineitem%}	
-												<div class="col-sm-1">{{ forloop.counter}} </div>
-												<div class="col-sm-2"><img src="{{ item.image.url}}" class="img-thumbnail profile-img mb-1" alt="item"></div>
-												<div class="col-sm-6">	
-									                <a class="vsidebar-a " href=""><p class="mb-0 font-weight-bold">{{ item}}</p>
+										<table>
+											<tr>
+												<div class="col-sm-1 col-md-1" >{{ forloop.counter}}</div>
+												<div class="col-sm-2 col-md-2"><img src="{{ item.image.url}}" class="img-thumbnail profile-img mb-1" alt="item"></div>
+												<div class="col-sm-5 col-md-5">	
+									                <a class="vsidebar-a" href=""><p class="mb-0 font-weight-bold">{{ item}}</p>
 													<small class="text-muted">{{ item.description}}</small>
 													</a>
 												</div>
-												<div class="col-sm-3">
-													<i class="fa fa-edit"> Edit</i> &nbsp; 
-													<i class="fa fa-trash text-danger"> Delete</i>
+												<div class="col-sm-2 col-md-2">
+												    {% if item.is_available%}
+													<span class="badge bg-success">Available</span>
+													{% else%}
+													<span class="badge bg-danger">Not Available</span>
+													{% endif%}
+												</div>
+												<div class="col-sm-2 col-md-2">
+													<a href="{% url 'edit_item' item.id%}" class="csidebar-a"><i class="fa fa-edit"> Edit</i> &nbsp; </a>
+													<a href="{% url 'delete_item' item.id%}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fa fa-trash text-danger"> Delete</i></a>
 												</div>
 												<hr>
+											</tr>
+										</table>
 										{% endfor%}
 									</div>
 									{% else%}
 										<h5 class="text-center">No Online Item Found</h5>
 										<div class="text-center">
-											<a href="" class="btn btn-success"><i class="fa fa-plus"></i> Add Item</a></a>
+											<a href="{% url 'add_item'%}" class="btn btn-success"><i class="fa fa-plus"></i> Add Item</a></a>
 										</div>
 									{% endif%}
                                 </div>
