@@ -1,0 +1,92 @@
+{% extends 'home/base.html'%}
+{% load static%}
+
+{% block content%}
+
+<!doctype html>
+<html lang="en">
+<div class="" style="background: url({% if vendor.user_profile.cover_photo%} {{ vendor.user_profile.cover_photo.url}} {% else %} {% static 'images/banner.jpg'%} {% endif%})">
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <span>
+                        {% if vendor.user_profile.profile_picture%}
+                        <img src="{{ vendor.user_profile.profile_picture.url}}" class="img-thumbnail profile-img mb-1"  alt="...">
+                        {% else%}
+                        <img src="{% static 'images/log.ico'%}" class="img-thumbnail profile-img mb-1" alt="...">
+                        {% endif%}
+                        <a href="{% url 'vendor_detail' vendor.vendor_slug%}" class="vsidebar-a">{{ vendor.vendor_name}}</a>
+                    </span>
+                </div>
+            </div>
+        
+            <div class="col-md-4">
+                <div class="card">
+                    <select class="form-select" name="" id="">
+                        <option value="" select>Today: 8:00 PM - 8:00 PM</option>
+                        <option value="" select>22</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-bg-secondary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Categories</div>
+                <div class="card-body">
+                    {% for category in categories%}
+                    <h5 class="card-title">{{ category}}</h5>
+                    {% endfor%}
+                    <p class="card-text"></p>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="#">MENU</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for category in categories%}
+                            <table class="tabled">
+                                <tr><div class="ss">{{ category}}</div>
+                                    {% for item in category.onlineitem.all%}
+                                        <div class="col-md-2"><img src="{{ item.image.url}}" class="img-thumbnail profile-img mb-1" alt="item"></div>
+                                        <div class="col-md-3">
+                                            <a class="vsidebar-a" href=""><p class="mb-0 font-weight-bold">{{ item}}</p>
+                                            <small class="text-muted">{{ item.description}}</small></a>
+                                        </div>
+                                        <div class="col-md-2">$ {{ item.price}}</div>
+                                        <div class="col-md-3 container">
+                                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                <button type="button" class="btn btn-outline-info"> <a href="" class="decrease_cart vsidebar-a" data-id="{{ item.id}}" data-url="{% url 'decrease_cart' item.id%}"><i class="fa fa-minus" style="color:red"> r</i></a> </button>
+                                                <button type="button" class=" btn btn-outline-success" id="qty-{{ item.id}}">0</button>
+                                                <button type="button" class=" btn btn-outline-info "> <a href="" class="add_to_cart vsidebar-a" data-id="{{ item.id}}" data-url="{% url 'add_to_cart' item.id%}"><i class="fa fa-plus"> y</i></a></button>
+                               
+                                              </div>
+                                            </div>
+                                        <hr>
+                                    {% endfor%}
+                                </tr>
+                            </table>
+						{% endfor%}
+                    </div> 
+                    {% for item in cart_items%} 
+                        <span id="qty-{{ item.onlineitem.id}}" class="item_qty d-none" data-qty="{{ item.quantity}}">{{ item.quantity}}</span>
+                    {% endfor%}        
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock%}

@@ -41,7 +41,7 @@ h3{
     animation-duration: 15s;
     z-index: 99;
 }
-.vsidebar-a:link, .csidebar-a:link { text-decoration: none; }  
+.vsidebar-a:link, .csidebar-a:link { text-decoration: none;}  
 
 .active{
     color:red; 
@@ -98,5 +98,4 @@ h3{
    width: 6.5rem;
    height: 6rem;
 }
-
 

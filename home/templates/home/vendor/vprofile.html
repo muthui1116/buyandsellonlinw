@@ -22,7 +22,11 @@
 
                                         <div class="row">
                                             <div class="col-lg-2">
-                                                <img src="{{ profile.profile_picture.url}}" class="img-thumbnail profile-img mb-1" alt="...">                                             
+                                                {% if vendor.user_profile.profile_picture%}
+                                                <img src="{{ profile.profile_picture.url}}" class="img-thumbnail profile-img mb-1" alt="...">
+                                                {% else%} 
+                                                <img src="{% static 'images/jet.png'%}" class="img-thumbnail profile-img mb-1" alt="img1">
+                                                {% endif%}
                                             </div>
                                             <div class="col-lg-10">
                                                 <div class="row">
@@ -36,12 +40,16 @@
 
                                         <div class="row">
                                             <div class="col-lg-2">
-                                                <img src="{{ profile.cover_photo.url}}" class="img-thumbnail profile-img mb-1" alt="...">                                              
+                                                {% if vendor.user_profile.cover_photo%}
+                                                <img src="{{ profile.cover_photo.url}}" class="img-thumbnail profile-img mb-1" alt="..."> 
+                                                {% else%}   
+                                                <img src="{% static 'images/banner.jpg'%}" class="img-thumbnail profile-img mb-1" alt="..."> 
+                                                {%endif%}
                                             </div>
                                             <div class="col-lg-10">
                                                 <div class="row">
                                                     <label class="form-control mb-1" for="">Update Cover Photo</label>
-                                                    {{ profile_form.profile_picture}}
+                                                    {{ profile_form.cover_photo}}
                                                 </div>
                                                 <label class="text-danger" for="">{{ profile_form.profile_picture.errors}}</label>
                                             </div>
@@ -54,7 +62,7 @@
                                             <div class="col-lg-10">
                                                 <div class="row">
                                                     <card class="form-control mb-1" for="">Update Your License</card>
-                                                    {{ profile_form.profile_picture}}
+                                                    {{  vendor_form.vendor_license}}
                                                 </div>
                                                 <label class="text-danger" for="">{{ profile_form.profile_picture.errors}}</label>
                                             </div>

@@ -1,0 +1,105 @@
+{% extends 'home/base.html'%}
+{% load static%}
+{% block content%}
+
+<!doctype html>
+<html lang="en">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="#"><i class="fa fa-shopping-cart"></i> Cart Items</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="text-center p-5" id="empty-cart" style="display: none;">
+                        <h3>Cart is empty</h3>
+                    </div>
+                    {% if cart_items%}
+                    {% for item in cart_items%}
+                    <li id="cart-item-{{item.id}}" class="row">
+                        <div class="col-md-2"><img src="{{ item.onlineitem.image.url}}" class="img-thumbnail profile-img mb-1" alt="item"></div>
+                        <div class="col-md-3">
+                            <a class="vsidebar-a" href=""><p class="mb-0 font-weight-bold">{{ item.onlineitem}}</p>
+                            <small class="text-muted">{{ item.onlineitem.description}}</small></a>
+                            <a href="{% url 'vendor_detail' item.onlineitem.vendor.vendor_slug%}" class="badge text-bg-secondary">{{ item.onlineitem.vendor}}</a>
+                        </div>
+                        <div class="col-md-2">$ {{ item.onlineitem.price}}</div>
+                        <div class="col-md-3 container">
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <button type="button" class="btn btn-outline-info"> <a href="" class="decrease_cart vsidebar-a" id="{{ item.id}}" data-id="{{ item.onlineitem.id}}" data-url="{% url 'decrease_cart' item.onlineitem.id%}"><i class="fa fa-minus" style="color:red"> r</i></a> </button>
+                                <button type="button" class=" btn btn-outline-success" id="qty-{{ item.onlineitem.id}}">0</button>
+                                <button type="button" class=" btn btn-outline-info "> <a href="" class="add_to_cart vsidebar-a" data-id="{{ item.onlineitem.id}}" data-url="{% url 'add_to_cart' item.onlineitem.id%}"><i class="fa fa-plus"> r</i></a></button>
+                                <button type="button" class="btn btn-outline-info"> <a href="" class="delete_cart vsidebar-a" data-id="{{ item.id}}" data-url="{% url 'delete_cart' item.id%}"><i class='fas fa-trash-alt' style="color:red"> r</i></a> </button>
+                            </div>
+                            </div>
+                        <hr>
+                    </li>
+                    {% endfor%}
+                    
+                    {% else%}
+                        <div class="text-center p-5">
+                            <h3>Cart is empty</h3>
+                        </div>
+                    {% endif%} 
+
+                    {% for item in cart_items%} 
+                        <span id="qty-{{ item.onlineitem.id}}" class="item_qty d-none" data-qty="{{ item.quantity}}">{{ item.quantity}}</span>
+                    {% endfor%}        
+                </div>    
+            </div>
+        </div>
+
+        <!-- Your order section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="#">Your Order</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                       <div>
+                        <ul>
+                            <li style="list-style-type: none;">
+                                Subtotal
+                                <span class="price float-end">
+                                    <span class="currency">$</span>
+                                    <span id="subtotal">{{ subtotal}}</span>
+                                </span>
+                            </li>
+                            <li style="list-style-type: none;">
+                                Tax
+                                <span class="price float-end">
+                                    <span class="currency">$</span>
+                                    <span id="tax">{{ tax}}</span>
+                                </span>
+                            </li>
+                            <li style="list-style-type: none; font-weight: 600;">
+                                TOTAL
+                                <span class="price float-end">
+                                    <span class="currency">$</span>
+                                    <span id="total">{{ grand_total}}</span>
+                                </span>
+                            </li>
+                        </ul>
+                       </div>
+                    </div> 
+                    {% for item in cart_items%} 
+                        <span id="qty-{{ item.onlineitem.id}}" class="item_qty d-none" data-qty="{{ item.quantity}}">{{ item.quantity}}</span>
+                    {% endfor%}        
+                </div>    
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock%}

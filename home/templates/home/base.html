@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>eCyber</title>
-
+ 
         <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/bf4cb2bb37.js" crossorigin="anonymous"></script>
 
@@ -24,9 +24,10 @@
     </head>
 
     <body>
+      
         <!-- LOAD NAVBAR HERE -->
         {% include 'home/includes/navbar.html'%}
-
+     
         <!-- LOAD CONTENT HERE -->
         {% block content%}
             <!-- Content goes here.. -->
@@ -35,7 +36,17 @@
         <!-- LOAD FOOTER HERE -->
         {% include 'home/includes/footer.html'%}
 
+        <!-- bootstrap scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+        <!-- jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+        <!-- sweetalert messages -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
+        <!-- main javascript -->
+        <script src="{% static 'index.js'%}" charset="utf-8"></script>
     </body>
 </html>
         

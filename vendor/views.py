@@ -6,7 +6,7 @@ from .forms import VendorForm
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
 from accounts.views import check_role_vendor
-from . models import Vendor
+from .models import Vendor
 from menu.models import Category, OnlineItem
 from menu.forms import CategoryForm, OnlineItemForm
 
@@ -69,6 +69,7 @@ def online_item_by_category(request, pk=None):
     }
     return render(request, 'home/vendor/online_item_by_category.html', context)
 
+
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
 def add_category(request):
@@ -85,11 +86,12 @@ def add_category(request):
     else:
         form = CategoryForm()
         # modify this form
-        form.fields['category'].queryset = Category.objects.filter(vendor=get_vendor(request))
+        form.fields['category_name'].queryset = Category.objects.filter(vendor=get_vendor(request))
     context = {
         'form': form,
     }
     return render(request, 'home/vendor/add_category.html', context)
+
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
@@ -113,6 +115,7 @@ def edit_category(request, pk=None):
     }
     return render(request, 'home/vendor/edit_category.html', context)
 
+
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
 def delete_category(request, pk=None):
@@ -120,6 +123,7 @@ def delete_category(request, pk=None):
     category.delete()
     messages.success(request, 'Category has been deleted successfully.')
     return redirect('menu_builder')
+
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
@@ -140,6 +144,7 @@ def add_item(request):
         'form': form,
     }
     return render(request, 'home/vendor/add_item.html', context)
+
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
@@ -172,3 +177,4 @@ def delete_item(request, pk=None):
     item.delete()
     messages.success(request, 'Online item has been deleted successfully.')
     return redirect('online_item_by_category', item.category.id)
+

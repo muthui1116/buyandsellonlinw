@@ -1,0 +1,42 @@
+{% extends 'home/base.html'%}
+{% load static%}
+
+{% block content%}
+{% include 'home/includes/alerts.html'%}
+<div class="container-fluid">
+    <div class="row">
+            <div class="col-sm-12 col col-md-9">
+                <h2>{{ vendor_count}} Online Items Found</h2>
+                {% for vendor in vendors%}
+                <div class="card">
+                    <button class="btn btn-danger">Closed</button>
+                    <div class="card-body">
+                        <span>
+                            {% if vendor.user_profile.profile_picture%}
+                            <img src="{{ vendor.user_profile.profile_picture.url}}" class="img-thumbnail profile-img mb-1"  alt="...">
+                            {% else%}
+                            <img src="{% static 'images/log.ico'%}" class="img-thumbnail profile-img mb-1" alt="...">
+                            {% endif%}
+                            <a href="{% url 'vendor_detail' vendor.vendor_slug%}" class="vsidebar-a">{{ vendor.vendor_name}}</a>
+                            {% if vendor.user_profile.address%}
+                            <small class="text-muted vsidebar-a">{{ vendor.user_profile.address}}</small>
+                            {% endif%}
+                            <a href="{% url 'vendor_detail' vendor.vendor_slug%}"><button class="btn btn-outline-info ms-4">View menu</button></a>
+                        </span>
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+        
+
+        <div class="col-sm-12 col col-md-3">
+                <div class="card-body bg-light text-center">
+                    <h2>I'm not listed</h2>
+                    <p>Is your business not listed oversite?</p>
+                    <a href="{% url 'registerVendor'%}"><button class="btn btn-outline-dark mb-2">ADD YOUR BUSINESS!</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}
